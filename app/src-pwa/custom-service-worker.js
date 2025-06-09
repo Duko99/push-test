@@ -42,6 +42,15 @@ registerRoute(
 self.addEventListener('push', async function (event) {
   console.log(`push addEventListener`)
   const data = event.data ? event.data.json() : 'missing push'
+  const now = new Date()
   console.log('data:', data)
-  console.log(`push message payload received at ${new Date()}:`, JSON.stringify(data?.payload))
+  console.log(`push message payload received at ${now}:`, JSON.stringify(data?.payload))
+
+  const channel = new BroadcastChannel('sw-messages')
+  channel.postMessage({
+    payload: {
+      data: data?.payload,
+      date: now,
+    },
+  })
 })

@@ -64,6 +64,6 @@ It should start on port 9200.
 
 ## Validate
 
-Open the app and click 'register push'. After a delay it will POST to `/push-subscription` and will receive an acknowledgement push message via the push event listener in `/app/src-pwa/custom-service-worker`.
+Open the app and click 'register push'. After a delay it will POST to `/push-subscription` and will receive an acknowledgement push message via the push event listener in `/app/src-pwa/custom-service-worker`. The acknowledgment text is shown with the 'latest message'.
 
-Also test the 'trigger push' button: it will receive a test push message in the push event listener "This is a test push message".
+Also test the 'trigger push' button: it will receive a test push message in the push event listener "This is a test push message", shown with the 'latest message'.

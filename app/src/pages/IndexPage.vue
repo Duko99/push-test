@@ -10,6 +10,7 @@
       data-cy="triggerPushBtn"
       @click="triggerPush()"
     />
+    <p data-cy="latestMsg">Latest message: {{ latestMsg }}</p>
   </q-page>
 </template>
 
@@ -22,6 +23,22 @@ import { api } from 'src/boot/axios'
 import {
   Notify,
 } from 'quasar'
+import { ref } from 'vue'
+
+const broadcastChannel = new BroadcastChannel('sw-messages')
+broadcastChannel.addEventListener('message', (event) => {
+  console.log('broadcast listener:', event)
+})
+
+const latestMsg = ref<unknown>(null)
+
+broadcastChannel.onmessage = (event) => {
+  console.log('event.data:', event?.data)
+  if (event?.data?.payload) {
+    console.log('setting latestMsg:', event.data.payload)
+    latestMsg.value = event.data.payload
+  }
+}
 
 async function setupPush() {
   await subscribeWebPushService()
